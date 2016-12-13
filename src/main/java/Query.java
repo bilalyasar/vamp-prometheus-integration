@@ -5,9 +5,14 @@ import java.util.ArrayList;
  */
 public class Query {
     ArrayList<String> tags = new ArrayList<String>();
+    String value;
 
-    Query(ArrayList<String> tags) {
+    Query(ArrayList<String> tags, String value) {
         this.tags = tags;
+        this.value = value;
     }
 
+    public String generateQueryString() {
+        return null;
+    }
 }

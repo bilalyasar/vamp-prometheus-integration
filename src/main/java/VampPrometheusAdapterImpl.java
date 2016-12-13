@@ -4,6 +4,12 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -47,6 +53,21 @@ public class VampPrometheusAdapterImpl implements VampPrometheusAdapter {
     }
 
     public Object query(Query query) {
+//        String endpoint = query.tags.
+        URL url = null;
+        try {
+            url = new URL("http://localhost:9090/api/v1/query?query=" + URLEncoder.encode("events{metrics=\"metric1\", routes=\"route1\",services=\"service1\",value=\"one\"}", "UTF-8"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"))) {
+            for (String line; (line = reader.readLine()) != null; ) {
+                System.out.println(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
