@@ -9,9 +9,6 @@ import query.QueryResult;
 
 import java.util.ArrayList;
 
-/**
- * Created by bilal on 12/13/16.
- */
 public class VampPrometheusAdapterImpl implements VampPrometheusAdapter {
 
     static final Gauge eventHandler = Gauge.build()
@@ -36,20 +33,22 @@ public class VampPrometheusAdapterImpl implements VampPrometheusAdapter {
 
     public QueryResult query(String value, String... tags) {
         Query query = new Query(value, tags);
-//        String endpoint = query.tags.
         return gson.fromJson(queryRestService.makeCall(query.generateQueryString()), QueryResult.class);
     }
 
-    public int count(Query query) {
-        return 0;
+    public QueryResult count(String value, String... tags) {
+        Query query = new Query(value, tags);
+        return gson.fromJson(queryRestService.makeCall("count(" + query.generateQueryString() + ")"), QueryResult.class);
     }
 
-    public double min(Query query) {
-        return 0;
+    public QueryResult min(String value, String... tags) {
+        Query query = new Query(value, tags);
+        return gson.fromJson(queryRestService.makeCall("min(" + query.generateQueryString() + ")"), QueryResult.class);
     }
 
-    public double max(Query query) {
-        return 0;
+    public QueryResult max(String value, String... tags) {
+        Query query = new Query(value, tags);
+        return gson.fromJson(queryRestService.makeCall("max(" + query.generateQueryString() + ")"), QueryResult.class);
     }
 
 

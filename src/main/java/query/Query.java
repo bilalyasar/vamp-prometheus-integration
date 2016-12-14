@@ -1,7 +1,5 @@
 package query;
 
-import java.util.ArrayList;
-
 /**
  * Created by bilal on 12/13/16.
  */

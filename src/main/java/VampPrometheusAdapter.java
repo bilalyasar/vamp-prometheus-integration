@@ -1,4 +1,3 @@
-import query.Query;
 import query.QueryResult;
 
 import java.util.ArrayList;
@@ -13,11 +12,11 @@ public interface VampPrometheusAdapter {
 
     public QueryResult query(String value, String... tags);
 
-    public int count(Query query);
+    public QueryResult count(String value, String... tags);
 
-    public double min(Query query);
+    public QueryResult min(String value, String... tags);
 
-    public double max(Query query);
+    public QueryResult max(String value, String... tags);
 
 
 }
