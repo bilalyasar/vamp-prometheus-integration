@@ -1,3 +1,6 @@
+import query.Query;
+import query.QueryResult;
+
 import java.util.ArrayList;
 
 /**
@@ -8,7 +11,7 @@ public interface VampPrometheusAdapter {
 
     public ArrayList<Event> getEvents();
 
-    public Object query(String value, String... tags);
+    public QueryResult query(String value, String... tags);
 
     public int count(Query query);
 

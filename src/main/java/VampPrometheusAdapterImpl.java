@@ -1,8 +1,11 @@
+import com.google.gson.Gson;
 import io.prometheus.client.Gauge;
 import io.prometheus.client.exporter.MetricsServlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import query.Query;
+import query.QueryResult;
 
 import java.util.ArrayList;
 
@@ -12,8 +15,9 @@ import java.util.ArrayList;
 public class VampPrometheusAdapterImpl implements VampPrometheusAdapter {
 
     static final Gauge eventHandler = Gauge.build()
-            .name("events").help("events").labelNames("value", "services", "metrics", "routes").register();
+            .name("events").help("events").labelNames("services", "metrics", "routes", "value").register();
     QueryRestService queryRestService;
+    Gson gson = new Gson();
 
     VampPrometheusAdapterImpl() {
         setup();
@@ -30,11 +34,10 @@ public class VampPrometheusAdapterImpl implements VampPrometheusAdapter {
         return null;
     }
 
-    public Object query(String value, String... tags) {
+    public QueryResult query(String value, String... tags) {
         Query query = new Query(value, tags);
 //        String endpoint = query.tags.
-        queryRestService.makeCall(query.generateQueryString());
-        return null;
+        return gson.fromJson(queryRestService.makeCall(query.generateQueryString()), QueryResult.class);
     }
 
     public int count(Query query) {
