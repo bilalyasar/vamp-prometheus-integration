@@ -8,7 +8,7 @@ public interface VampPrometheusAdapter {
 
     public ArrayList<Event> getEvents();
 
-    public Object query(Query query);
+    public Object query(String value, String... tags);
 
     public int count(Query query);
 
